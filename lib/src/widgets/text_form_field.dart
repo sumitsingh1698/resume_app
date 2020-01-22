@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class TextFormfield extends StatelessWidget {
   final String type;
-  final Map<String,String> data;
+  final Map<String, String> data;
 
   TextFormfield({
     @required this.type,
@@ -12,16 +12,14 @@ class TextFormfield extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(10.0),
+      margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
       child: TextFormField(
-        onSaved: (String value){
+        onSaved: (String value) {
           data["$type"] = value;
         },
-        validator: (value){
-
-          if(value.isEmpty)
-             return "Can't be empty";
-          if(type == "Email") {
+        validator: (value) {
+          if (value.isEmpty) return "Can't be empty";
+          if (type == "Email") {
             if (!RegExp("^[A-Za-z0-9+_.-]+@(.+)\$").hasMatch(value))
               return "Enter valid email";
           }
@@ -30,7 +28,6 @@ class TextFormfield extends StatelessWidget {
         decoration: InputDecoration(
           labelText: "$type",
           border: OutlineInputBorder(),
-
         ),
       ),
     );

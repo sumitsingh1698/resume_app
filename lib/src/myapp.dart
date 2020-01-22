@@ -2,7 +2,7 @@ import 'package:fluro/fluro.dart';
 import "package:flutter/material.dart";
 import 'package:resume_app/src/routing/application.dart';
 import 'package:resume_app/src/routing/routes.dart';
-import 'package:resume_app/src/ui/user_detail.dart';
+import 'package:resume_app/src/ui/homepage.dart';
 
 class MyApp extends StatelessWidget {
 
@@ -17,15 +17,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
 
       theme: ThemeData(
-        primaryColor: Colors.red,
-        accentColor: Colors.red,
+        primaryColor: Colors.green,
+        accentColor: Colors.green,
         buttonColor: Colors.red,
         backgroundColor: Colors.white,
       ),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: Application.router.generator,
       title: "Resume App",
-      home: UserDetail(),
+      home: Homepage(),
     );
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:resume_app/src/routing/application.dart';
@@ -5,7 +7,6 @@ import 'package:resume_app/src/routing/application.dart';
 import '../widgets/text_form_field.dart';
 
 class UserDetail extends StatefulWidget {
-
   @override
   _UserDetailState createState() => _UserDetailState();
 }
@@ -27,8 +28,8 @@ class _UserDetailState extends State<UserDetail> {
             if (formkey.currentState.validate()) {
               formkey.currentState.save();
               data.forEach((String s, String a) => print("$s   s:  $a \n"));
-              Application.router.navigateTo(context, "/textpage");
-
+              String userdata = jsonEncode(data);
+              Application.router.navigateTo(context, "/convertpdf/$userdata");
             }
           },
         ),
@@ -44,7 +45,7 @@ class _UserDetailState extends State<UserDetail> {
             children: <Widget>[
               TextFormfield(type: "Name", data: data),
               TextFormfield(type: "Email", data: data),
-              TextFormfield(type: "Mobile No", data: data),
+              TextFormfield(type: "Mobileno", data: data),
               TextFormfield(type: "Address", data: data),
               RaisedButton(
                 padding: EdgeInsets.all(10.0),
@@ -53,8 +54,6 @@ class _UserDetailState extends State<UserDetail> {
                     formkey.currentState.save();
                     data.forEach(
                         (String s, String a) => print("$s   s:  $a \n"));
-
-                    Navigator.popAndPushNamed(context, "/convertpdf");
                   }
                 },
                 child: Text("Next"),

@@ -3,13 +3,31 @@ import 'package:flutter/material.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pdf;
 import 'package:printing/printing.dart';
+import 'package:resume_app/src/model/Detail.dart';
 
-class ConvertPdf extends StatelessWidget {
+class ConvertPdf extends StatefulWidget {
+
+ Detail detail;
+
+ ConvertPdf(Detail detail){
+    this.detail = detail;
+    print("detail name "+detail.getName);
+ }
+
+
+  @override
+  _ConvertPdfState createState() => _ConvertPdfState(detail);
+}
+
+class _ConvertPdfState extends State<ConvertPdf> {
+  Detail detail;
+  _ConvertPdfState(this.detail);
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Pdf"),
+        title: Text("Resume Pdf"),
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.print),
@@ -23,11 +41,7 @@ class ConvertPdf extends StatelessWidget {
       body: Center(
         child: Column(
           children: <Widget>[
-            RaisedButton(child: Text("Back"),
-            onPressed: (){
-              Navigator.pop(context);
-            }),
-            Text('Click on the print button below'),
+            Text('${detail.getName}'),
           ],
         ),
       ),
@@ -36,17 +50,24 @@ class ConvertPdf extends StatelessWidget {
 
   List<int> buildPdf(PdfPageFormat format) {
     final pdf.Document doc = pdf.Document();
-
+  
     doc.addPage(
       pdf.Page(
         pageFormat: format,
         build: (pdf.Context context) {
-          return pdf.ConstrainedBox(
-            constraints: const pdf.BoxConstraints.expand(),
-            child: pdf.FittedBox(
-              child: pdf.Text(
-                'Madharchod',
-              ),
+          return pdf.Container(
+            
+            padding: pdf.EdgeInsets.all(20),
+            child: pdf.Center(child: pdf.Column(
+              crossAxisAlignment: pdf.CrossAxisAlignment.center,
+              children: <pdf.Widget>[
+              pdf.Text("${detail.getName}",style: pdf.TextStyle(fontSize:30)),
+              pdf.Text("${detail.getPhoneno} | ${detail.getEmail}",style: pdf.TextStyle(fontSize:20)),
+              pdf.SizedBox(height:20),
+              pdf.Container(height: 5,color: PdfColors.black),
+              
+            ]
+            ),
             ),
           );
         },
@@ -55,4 +76,5 @@ class ConvertPdf extends StatelessWidget {
 
     return doc.save();
   }
+  
 }

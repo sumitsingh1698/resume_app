@@ -5,7 +5,7 @@ class Routes{
 
      static const main = "/";
      static const userDetail = "/userdetail";
-     static const convertPdf = "/convertpdf";
+     static const convertPdf = "/convertpdf/:data";
      static const textpage = "/textpage";
      static void configureRouter(Router router){
 

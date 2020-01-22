@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import 'package:pdf/pdf.dart';
@@ -9,7 +8,9 @@ class ConvertPdf extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Pdf"),),
+      appBar: AppBar(
+        title: Text("Pdf"),
+      ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.print),
         tooltip: 'Print Document',
@@ -18,15 +19,22 @@ class ConvertPdf extends StatelessWidget {
             onLayout: buildPdf,
           );
         },
-
       ),
       body: Center(
-        child: const Text('Click on the print button below'),
+        child: Column(
+          children: <Widget>[
+            RaisedButton(child: Text("Back"),
+            onPressed: (){
+              Navigator.pop(context);
+            }),
+            Text('Click on the print button below'),
+          ],
+        ),
       ),
     );
   }
-  List<int> buildPdf(PdfPageFormat format) {
 
+  List<int> buildPdf(PdfPageFormat format) {
     final pdf.Document doc = pdf.Document();
 
     doc.addPage(
@@ -47,5 +55,4 @@ class ConvertPdf extends StatelessWidget {
 
     return doc.save();
   }
-
 }
